@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
 const client = require('soundoftext-js');
 const Tone = require('tone');
 const tone = require('./N.mp3');
@@ -12,14 +13,54 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <div> Memorize? Harmonize? Melody?</div>
-            <form> <input id="facts" type="text"></input>
-                <br></br>
-            </form>
+
+
+          <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet"></link>
+
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+                integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+                crossOrigin="anonymous"></link>
+
+
+
+        <header className="App-header area">
+            <ul className="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+          <div className="Title goDown"> Rememory</div>
+            <div className="sub-header goDown2"> Memorize your facts with melodies! </div>
+
             <br></br>
+            <br></br>
+            {/*<form> <input id="facts" class="form" type="text" placeholder="Input a fact! Or a phrase you want to memorize!"></input>*/}
+                {/*<br></br>*/}
+            {/*</form>*/}
+
+
+            <label htmlFor="inp" className="inp">
+                <input type="text" id="facts" className="inp" placeholder="&nbsp;" autocomplete="off"></input>
+                    <span className="label oof">Input a fact you want to memorize!</span>
+                    <span className="border"></span>
+            </label>
+
+            <br></br>
+            <br></br>
+
+
             <Potato />
         </header>
+
+
 
       </div>
     );
@@ -44,7 +85,10 @@ class Potato extends Component {
   render() {
     return (
         <div>
-            <button id="Oof" onClick={this.run}> Memorize button sound! </button></div>
+            <button className="btn" onClick={this.run} type="button"><span><i className="fas fa-music"></i></span></button>
+            {/*<button id="Oof" onClick={this.run}> Memorize button sound! </button>*/}
+
+        </div>
 
     )
   }
@@ -68,7 +112,11 @@ class Potato extends Component {
 
           let input = this.makeNoteObjects(results);
 
+
+
           this.setSampler(input);
+
+          // this.playBackground();
 
 
       });
@@ -150,20 +198,62 @@ class Potato extends Component {
 
   setSampler(input) {
       console.log("reached setSampler");
+
+//play a middle 'C' for the duration of an 8th note
+
+
       let sampler = new Tone.Sampler(
               input , function() {
                   console.log("reached function inside sampler")
                   console.log(Object.keys(input).length + " hellppppp");
 
-                  for(let i = 0; i < Object.keys(input).length; i++) {
-                      sampler.triggerAttackRelease(Object.keys(input), "1n");
+                  for(let i = 0; i < 200; i++) {
+                      let note = Math.floor((Math.random() * noteArray.length));
+                      sampler.triggerAttackRelease(noteArray[note], "1n", i);
+                      // synth.triggerAttack(noteArray[note]);
+
+                      // sampler.triggerAttackRelease("D3", "4n", i + 2);
+                      // sampler.triggerAttackRelease("E3", "1n", i + 3);
                       // this.sleep(10000);
                       // new Tone.Delay(10, 0);
                   }
+              // synth.triggerAttackRelease(noteArray[0], '1n').toMaster();
 
             }
           ).toMaster();
+
+
+      return sampler;
           // sampler.triggerAttackRelease("D3", "8n");
+
+  }
+
+
+  playBackground() {
+      // var synth = new Tone.Synth().toMaster();
+      //
+      // var music = [{"time": 0, "note": "A4", "duration": "16n"},
+      // {"time": 23.5, "note": "A4", "duration": "8n"},
+      // {"time": 24, "note": "G4", "duration": "4n"}];
+
+      // function playMusic(){
+      //     var part = new Tone.Part(function(time, note){
+      //         //the notes given as the second element in the array
+      //         //will be passed in as the second argument
+      //         console.log(note);
+      //         synth.triggerAttackRelease(note.note, note.duration, time);
+      //     }, music).start(0);
+      //
+      //     Tone.Transport.start();
+      // }
+      //
+      // playMusic();
+
+      // }
+      // synth.triggerAttackRelease(noteArray[0], '1n').toMaster();
+      // synth.triggerAttackRelease(noteArray[0], '1n').toMaster();
+
+
 
   }
 
