@@ -37,7 +37,7 @@ class App extends Component {
                 <li></li>
             </ul>
 
-          <div className="Title goDown"> Rememory</div>
+          <div className="Title goDown"> Remelody</div>
             <div className="sub-header goDown2"> Memorize your facts with melodies! </div>
 
             <br></br>
